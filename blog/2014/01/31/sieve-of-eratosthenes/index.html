@@ -5,13 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Bits of Discovery</title>
+  <title>Sieve of Eratosthenes - Bits of Discovery</title>
   <meta name="author" content="Salem Talha">
 
   
-  <meta name="description" content="I was reading on wikipedia about a few string functions and one interesting
-one that I came across is the Levenshtein Distance.
-It&rsquo;s a really &hellip;">
+  <meta name="description" content="So I&rsquo;ve been taking an interest in prime numbers recently and how to generate them, so I wrote a up a quick implementation of The Sieve of &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +18,7 @@ It&rsquo;s a really &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://salemtalha.github.io/">
+  <link rel="canonical" href="http://salemtalha.github.io/blog/2014/01/31/sieve-of-eratosthenes/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -68,93 +66,12 @@ It&rsquo;s a really &hellip;">
 </nav> -->
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/01/31/levenshtein-distance/">Levenshtein Distance</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-31T22:21:01-05:00" pubdate data-updated="true">Jan 31<span>st</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I was reading on wikipedia about a few string functions and one interesting
-one that I came across is the <a href="http://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein Distance</a>.
-It&rsquo;s a really neat way of figuring out the &ldquo;edit distance&rdquo; between two strings,
-and, like many problems, it&rsquo;s best stated recursively. So here&rsquo;s my
-implementation in racket. It&rsquo;s always interesting to think about how some
-problems almost beg to be solved via a particular paradigm, and I think this is one of them.
-For comparison, the imperative solutions on the wiki page are quite long and a
-bit unwieldy.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">reallev</span> <span class="nv">str1</span> <span class="nv">str2</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">define </span><span class="nv">cost</span> <span class="mi">0</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">cond </span><span class="p">[(</span><span class="nf">empty?</span> <span class="nv">str1</span><span class="p">)</span> <span class="p">(</span><span class="nb">length </span><span class="nv">str2</span><span class="p">)]</span>
-</span><span class='line'>        <span class="p">[(</span><span class="nf">empty?</span> <span class="nv">str2</span><span class="p">)</span> <span class="p">(</span><span class="nb">length </span><span class="nv">str1</span><span class="p">)]</span>
-</span><span class='line'>        <span class="p">[</span><span class="nf">else</span>
-</span><span class='line'>           <span class="p">(</span><span class="k">when </span><span class="p">(</span><span class="nb">not </span><span class="p">(</span><span class="nb">equal? </span><span class="p">(</span><span class="nf">first</span> <span class="nv">str1</span><span class="p">)</span> <span class="p">(</span><span class="nf">first</span> <span class="nv">str2</span><span class="p">)))</span> <span class="p">(</span><span class="k">set! </span><span class="nv">cost</span> <span class="mi">1</span><span class="p">))</span>
-</span><span class='line'>           <span class="p">(</span><span class="nb">min </span><span class="p">(</span><span class="nb">add1 </span><span class="p">(</span><span class="nf">reallev</span> <span class="p">(</span><span class="nf">rest</span> <span class="nv">str1</span><span class="p">)</span> <span class="nv">str2</span><span class="p">))</span>
-</span><span class='line'>                <span class="p">(</span><span class="nb">add1 </span><span class="p">(</span><span class="nf">reallev</span> <span class="nv">str1</span> <span class="p">(</span><span class="nf">rest</span> <span class="nv">str2</span><span class="p">)))</span>
-</span><span class='line'>                <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nf">reallev</span> <span class="p">(</span><span class="nf">rest</span> <span class="nv">str1</span><span class="p">)</span> <span class="p">(</span><span class="nf">rest</span> <span class="nv">str2</span><span class="p">))</span> <span class="nv">cost</span><span class="p">))]))</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">lev</span> <span class="nv">str1</span> <span class="nv">str2</span><span class="p">)</span> <span class="p">(</span><span class="nf">reallev</span> <span class="p">(</span><span class="nb">string-&gt;list </span><span class="nv">str1</span><span class="p">)</span> <span class="p">(</span><span class="nb">string-&gt;list </span><span class="nv">str2</span><span class="p">)))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Some cool uses of this might be, for example, to suggest spelling corrections on devices. If
-you misspell a word, chances are the one you want is a short number of edits away, which in this
-algorithm is formalized as being either a insertion, deletion or replacement.</p>
-
-<p>The gist of the algorithm is quite simple. You start off comparing the strings pairwise.
-As seen in the recursive call at the end of a function, if the two characters being
-compared do not match, you&rsquo;re trying to achieve the minimum of of the 3 strategies by attaching a
-&ldquo;cost&rdquo; to each operation and allowing each scenario to be recursed upon. It&rsquo;s quite elegant, and to me
-it turned out to be simpler than I assumed it to be.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/31/sieve-of-eratosthenes/">Sieve of Eratosthenes</a></h1>
+      <h1 class="entry-title">Sieve of Eratosthenes</h1>
     
     
       <p class="meta">
@@ -177,7 +94,7 @@ it turned out to be simpler than I assumed it to be.</p>
   </header>
 
 
-  <div class="entry-content"><p>So I&rsquo;ve been taking an interest in prime numbers recently and how to generate them, so I wrote a up a quick implementation of <a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">The Sieve of Eratosthenes</a> in Python. Here it is:</p>
+<div class="entry-content"><p>So I&rsquo;ve been taking an interest in prime numbers recently and how to generate them, so I wrote a up a quick implementation of <a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">The Sieve of Eratosthenes</a> in Python. Here it is:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -238,18 +155,53 @@ it turned out to be simpler than I assumed it to be.</p>
 
 <p>For those interested in more curious facts about prime numbers a brilliant talk is given by the great Terrence Tao. It&rsquo;s a bit lengthy but <a href="http://www.youtube.com/watch?v=PtsrAw1LR3E">well worth your time.</a></p>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Salem Talha</span></span>
+
+      
+
+
+
+
+
+
+
+
   
 
 
-    </article>
+<time datetime="2014-01-31T21:03:29-05:00" pubdate data-updated="true">Jan 31<span>st</span>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
   
-  <div class="pagination">
-    
-    <a href="/blog/archives/"> Archives </a>
-    
-  </div>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://salemtalha.github.io/blog/2014/01/31/sieve-of-eratosthenes/" data-via="" data-counturl="http://salemtalha.github.io/blog/2014/01/31/sieve-of-eratosthenes/" >Tweet</a>
+  
+  
+  
 </div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/01/31/levenshtein-distance/" title="Next Post: Levenshtein Distance">Levenshtein Distance &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section id="titles">
@@ -303,6 +255,7 @@ it turned out to be simpler than I assumed it to be.</p>
 
   
 </aside>
+
 
     </div>
   </div>
