@@ -4,7 +4,7 @@
   <title><![CDATA[Bits of Discovery]]></title>
   <link href="http://salemtalha.github.io/atom.xml" rel="self"/>
   <link href="http://salemtalha.github.io/"/>
-  <updated>2014-02-28T12:24:37-05:00</updated>
+  <updated>2014-03-26T01:28:08-04:00</updated>
   <id>http://salemtalha.github.io/</id>
   <author>
     <name><![CDATA[Salem Talha]]></name>
@@ -12,6 +12,47 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[2048 Mod]]></title>
+    <link href="http://salemtalha.github.io/blog/2014/03/26/2048-mod/"/>
+    <updated>2014-03-26T01:15:23-04:00</updated>
+    <id>http://salemtalha.github.io/blog/2014/03/26/2048-mod</id>
+    <content type="html"><![CDATA[<p>So the 2048 craze has pretty well taken hold, so I decided to make a
+little mod myself out of it. The idea is that every 10 seconds,
+everyone playing accept everyone else&rsquo;s keystrokes for a brief moment.
+I did this using Socket.io along with
+Node.js to send movements across clients. The main bit of code on the
+server involves adding and removing the event listener the
+appropriate intervals:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">cb</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">direction</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">socket</span><span class="p">.</span><span class="nx">broadcast</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;keypress&#39;</span><span class="p">,</span> <span class="nx">direction</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">socket</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s1">&#39;keypress&#39;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">socket</span><span class="p">.</span><span class="nx">removeListener</span><span class="p">(</span><span class="s1">&#39;keypress&#39;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span> <span class="mi">100</span><span class="p">);</span>
+</span><span class='line'><span class="p">},</span> <span class="mi">10000</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I also added a display so you can know how many
+other players are online! You can check it out <a href="http://www.csclub.uwaterloo.ca/~satalha/2048">here</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Wildcard Programming Challenge]]></title>
