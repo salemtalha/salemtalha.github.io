@@ -4,7 +4,7 @@
   <title><![CDATA[Bits of Discovery]]></title>
   <link href="http://salemtalha.github.io/atom.xml" rel="self"/>
   <link href="http://salemtalha.github.io/"/>
-  <updated>2014-03-26T01:28:08-04:00</updated>
+  <updated>2014-04-01T13:02:47-04:00</updated>
   <id>http://salemtalha.github.io/</id>
   <author>
     <name><![CDATA[Salem Talha]]></name>
@@ -12,6 +12,38 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[My Hackathon Experience]]></title>
+    <link href="http://salemtalha.github.io/blog/2014/04/01/my-hackathon-experience/"/>
+    <updated>2014-04-01T12:43:10-04:00</updated>
+    <id>http://salemtalha.github.io/blog/2014/04/01/my-hackathon-experience</id>
+    <content type="html"><![CDATA[<p>So I attended the <a href="www.hack-waterloo.com">UWaterloo Hackathon</a> the other night and it was a rereally neat experience. There were a ton of people there, and some folks came down from Google Waterloo to help out with judging and mentoring.</p>
+
+<p>As for my personal project, I decided to make an attempt at solving a
+problem I face a lot in my personal life. I have a practice of
+sending my close friends lots of links over facebook and other
+mediums. Sometimes, my friends are too busy to look at it right
+then and there. But later, when I ask them about the link to discuss
+it with them, the link is somewhere up in the conversation thread
+and it becomes too much of a hassle to retrieve it again. That&rsquo;s where
+CheckIt comes in. My goal is to allow friends to send each other links
+in a private way, so that when they log in, they see your links displayed
+in chronological order so they can catch up on anything you left them.
+I&rsquo;m also planning to allow the user to leave a quick comment on the link,
+expressing how they feel about it. This summer I plan to integrate with
+facebook so that whenever a link is sent in your chats, CheckIt can just
+ship it off to your account so that you can read it later whenever you
+want.</p>
+
+<p><img src="http://salemtalha.github.io/images/CheckIt.png" title="[500] [500]" ></p>
+
+<p>You can <a href="http://gentle-brushlands-5931.herokuapp.com">CheckIt</a> right now
+although the functionality is pretty bare. Next on my list of improvements
+is better routing, autocomplete for link recipients, and being able to send
+&ldquo;friend requests&rdquo; so you can approve who you&rsquo;ll get links from.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2048 Mod]]></title>
