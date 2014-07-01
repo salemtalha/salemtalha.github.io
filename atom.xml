@@ -1,61 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!doctype html>
-<!-- START OF _layouts/default.html -->
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" >
-		<meta content="width=device-width,initial-scale=1" name="viewport">
-		<meta content="" name="description">
-		<meta content="Bits of Discovery" name="author">
+	<title><![CDATA[Bits of Discovery]]></title>
+	<link href="http://salemtalha.github.io/atom.xml" rel="self"/>
+	<link href="http://salemtalha.github.io/"/>
+	<updated>2014-06-30T20:52:08-07:00</updated>
+	<id>http://salemtalha.github.io/</id>
+	<author>
+		<name><![CDATA[Salem Talha]]></name>
 		
-		<title>Bits of Discovery</title>
-		
-		<!-- Styles -->
-		<link href="/stylesheets/main.css" rel="stylesheet">
-		
-		<!-- Google webfonts -->
-		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
-		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Cousine">
-		
-		<!-- jQuery and plugins -->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-		<script src="/js/jquery.zclip.min.js"></script>
-		
-		<!-- Syntax highlighter -->
-		<link href="/stylesheets/prettify-hemisu.css" type="text/css" rel="stylesheet" />
-		<script type="text/javascript" src="/js/prettify.js"></script>
-		
-		<!--<link href="http://feeds.feedburner.com/turkeltaub" rel="alternate" title="Bits of Discovery" type="application/rss+xml" />-->
-		
-	</head>
-	<body onload="prettyPrint()">
+	</author>
+	<generator uri="http://octopress.org/">Octopress</generator>
+
 	
-		<div class="wrap">
-	
-			<header>
-				<div class="title">Bits of Discovery</div>
+	<entry>
+		
+			<title type="html"><![CDATA[First Raspberry Pi project]]></title>
+		
+		<link href="http://salemtalha.github.io/blog/2014/06/30/first-raspberry-pi-project/"/>
+		<updated>2014-06-30T20:21:09-07:00</updated>
+		<id>http://salemtalha.github.io/blog/2014/06/30/first-raspberry-pi-project</id>
+		<content type="html">
+			<![CDATA[
 				
-				<div class="navi">
-					<ul>
-						<li><a href="/">Blog</a></li>
-						<li><a href="/blog/archives">Archives</a></li>
-					</ul>
-				</div> <!-- // .navi -->
-			</header>
-		
-				<!-- START OF index.html -->
-
-	
-		
-		<!-- START OF _includes/article.html -->
-<article>
-	<header>
-		<h1><a href="/blog/2014/06/30/first-raspberry-pi-project/">First Raspberry Pi project</a></h1>
-		<time>30 June 2014</time>
-	</header>
-		<div class="content">
-			<p>So last week I got my Raspberry Pi in the mail, and since the World Cup has rolled around again
+					<p></p>
+				
+			]]>
+			<![CDATA[<p>So last week I got my Raspberry Pi in the mail, and since the World Cup has rolled around again
 I decided to create a World Cup scoreboard as my first project. Since I&rsquo;ve had no previous experience
 with circuitry and GPIOs beforehand it was quite a gratifying learning experience for me. I
 was disproportionately happy when I first completed a circuit and lit up a little red LED.
@@ -285,36 +256,24 @@ and the source code! I made it to be callable from the command line:</p>
 
 
 <p><img src="https://scontent-a-sjc.xx.fbcdn.net/hphotos-xpa1/t1.0-9/10411921_325593264271808_1660655254114522972_n.jpg"></p>
-
-			
-			
-		</div>
-	<footer>
+]]>
+		</content>
+	</entry>
+	
+	<entry>
 		
-
-
+			<title type="html"><![CDATA[Levenshtein Distance]]></title>
 		
-
-
-
-
-	
-	
-	</footer>
-	
-</article>
-<!-- END OF _includes/article.html -->
-
-	
-		
-		<!-- START OF _includes/article.html -->
-<article>
-	<header>
-		<h1><a href="/blog/2014/01/31/levenshtein-distance/">Levenshtein Distance</a></h1>
-		<time>31 January 2014</time>
-	</header>
-		<div class="content">
-			<p>I was reading on wikipedia about a few string functions and one interesting
+		<link href="http://salemtalha.github.io/blog/2014/01/31/levenshtein-distance/"/>
+		<updated>2014-01-31T19:21:01-08:00</updated>
+		<id>http://salemtalha.github.io/blog/2014/01/31/levenshtein-distance</id>
+		<content type="html">
+			<![CDATA[
+				
+					<p></p>
+				
+			]]>
+			<![CDATA[<p>I was reading on wikipedia about a few string functions and one interesting
 one that I came across is the <a href="http://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein Distance</a>.
 It&rsquo;s a really neat way of figuring out the &ldquo;edit distance&rdquo; between two strings,
 and, like many problems, it&rsquo;s best stated recursively. So here&rsquo;s my
@@ -357,36 +316,24 @@ As seen in the recursive call at the end of a function, if the two characters be
 compared do not match, you&rsquo;re trying to achieve the minimum of of the 3 strategies by attaching a
 &ldquo;cost&rdquo; to each operation and allowing each scenario to be recursed upon. It&rsquo;s quite elegant, and to me
 it turned out to be simpler than I assumed it to be.</p>
-
-			
-			
-		</div>
-	<footer>
+]]>
+		</content>
+	</entry>
+	
+	<entry>
 		
-
-
+			<title type="html"><![CDATA[Sieve of Eratosthenes]]></title>
 		
-
-
-
-
-	
-	
-	</footer>
-	
-</article>
-<!-- END OF _includes/article.html -->
-
-	
-		
-		<!-- START OF _includes/article.html -->
-<article>
-	<header>
-		<h1><a href="/blog/2014/01/31/sieve-of-eratosthenes/">Sieve of Eratosthenes</a></h1>
-		<time>31 January 2014</time>
-	</header>
-		<div class="content">
-			<p>So I&rsquo;ve been taking an interest in prime numbers recently and how to generate them, so I wrote a up a quick implementation of <a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">The Sieve of Eratosthenes</a> in Python. Here it is:</p>
+		<link href="http://salemtalha.github.io/blog/2014/01/31/sieve-of-eratosthenes/"/>
+		<updated>2014-01-31T18:03:29-08:00</updated>
+		<id>http://salemtalha.github.io/blog/2014/01/31/sieve-of-eratosthenes</id>
+		<content type="html">
+			<![CDATA[
+				
+					<p></p>
+				
+			]]>
+			<![CDATA[<p>So I&rsquo;ve been taking an interest in prime numbers recently and how to generate them, so I wrote a up a quick implementation of <a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">The Sieve of Eratosthenes</a> in Python. Here it is:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -446,74 +393,8 @@ it turned out to be simpler than I assumed it to be.</p>
 
 
 <p>For those interested in more curious facts about prime numbers a brilliant talk is given by the great Terrence Tao. It&rsquo;s a bit lengthy but <a href="http://www.youtube.com/watch?v=PtsrAw1LR3E">well worth your time.</a></p>
-
-			
-			
-		</div>
-	<footer>
-		
-
-
-		
-
-
-
-
+]]>
+		</content>
+	</entry>
 	
-	
-	</footer>
-	
-</article>
-<!-- END OF _includes/article.html -->
-
-	
-	
-<div class="pagination">
-	
-	
-	<span class="total">1 of 1</span>
-	
-	
-</div>
-<!-- END OF index.html -->
-
-		
-			<footer>
-				Copyright &copy; 2014
-
-	Salem Talha
-
-
-			</footer>
-			
-		</div> <!-- // .wrap -->
-	</body>
-	<script>
-		$(document).ready(function() {
-			// Make images center
-			$('p:has(img)').css('text-align', 'center');
-			
-			// Add the image's title attribute as a caption
-			$('p:has(img)').append(function () {
-				return '<div class="caption">' + ($('img', this).attr('title') || "") + '</div>';
-			});
-			
-			// Prettify code
-			$('code').addClass('prettyprint');
-			$('pre code').addClass('linenums');
-			
-			// Copy to clipboard with button
-			$('pre:has(code)').prepend(function(){
-				return '<div class="clip-btn">copy to clipboard</div>';
-			});
-			$('.clip-btn').zclip({
-				path:'/js/ZeroClipboard.swf',
-				copy: $(this).next('code').text(),
-				afterCopy: function(){
-					$(this).replaceWith('<div class="clip-btn">copied!');
-					}
-			});
-		});
-	</script>
-</html>
-<!-- END OF _layouts/default.html -->
+</feed>

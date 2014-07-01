@@ -9,7 +9,7 @@
 		<meta content="" name="description">
 		<meta content="Bits of Discovery" name="author">
 		
-		<title>Bits of Discovery</title>
+		<title>First Raspberry Pi project &mdash; Bits of Discovery</title>
 		
 		<!-- Styles -->
 		<link href="/stylesheets/main.css" rel="stylesheet">
@@ -44,11 +44,9 @@
 				</div> <!-- // .navi -->
 			</header>
 		
-				<!-- START OF index.html -->
+				<!-- START OF _layouts/post.html -->
 
-	
-		
-		<!-- START OF _includes/article.html -->
+<!-- START OF _includes/article.html -->
 <article>
 	<header>
 		<h1><a href="/blog/2014/06/30/first-raspberry-pi-project/">First Raspberry Pi project</a></h1>
@@ -305,177 +303,8 @@ and the source code! I made it to be callable from the command line:</p>
 </article>
 <!-- END OF _includes/article.html -->
 
-	
-		
-		<!-- START OF _includes/article.html -->
-<article>
-	<header>
-		<h1><a href="/blog/2014/01/31/levenshtein-distance/">Levenshtein Distance</a></h1>
-		<time>31 January 2014</time>
-	</header>
-		<div class="content">
-			<p>I was reading on wikipedia about a few string functions and one interesting
-one that I came across is the <a href="http://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein Distance</a>.
-It&rsquo;s a really neat way of figuring out the &ldquo;edit distance&rdquo; between two strings,
-and, like many problems, it&rsquo;s best stated recursively. So here&rsquo;s my
-implementation in racket. It&rsquo;s always interesting to think about how some
-problems almost beg to be solved via a particular paradigm, and I think this is one of them.
-For comparison, the imperative solutions on the wiki page are quite long and a
-bit unwieldy.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">reallev</span> <span class="nv">str1</span> <span class="nv">str2</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">define </span><span class="nv">cost</span> <span class="mi">0</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">cond </span><span class="p">[(</span><span class="nf">empty?</span> <span class="nv">str1</span><span class="p">)</span> <span class="p">(</span><span class="nb">length </span><span class="nv">str2</span><span class="p">)]</span>
-</span><span class='line'>        <span class="p">[(</span><span class="nf">empty?</span> <span class="nv">str2</span><span class="p">)</span> <span class="p">(</span><span class="nb">length </span><span class="nv">str1</span><span class="p">)]</span>
-</span><span class='line'>        <span class="p">[</span><span class="nf">else</span>
-</span><span class='line'>           <span class="p">(</span><span class="k">when </span><span class="p">(</span><span class="nb">not </span><span class="p">(</span><span class="nb">equal? </span><span class="p">(</span><span class="nf">first</span> <span class="nv">str1</span><span class="p">)</span> <span class="p">(</span><span class="nf">first</span> <span class="nv">str2</span><span class="p">)))</span> <span class="p">(</span><span class="k">set! </span><span class="nv">cost</span> <span class="mi">1</span><span class="p">))</span>
-</span><span class='line'>           <span class="p">(</span><span class="nb">min </span><span class="p">(</span><span class="nb">add1 </span><span class="p">(</span><span class="nf">reallev</span> <span class="p">(</span><span class="nf">rest</span> <span class="nv">str1</span><span class="p">)</span> <span class="nv">str2</span><span class="p">))</span>
-</span><span class='line'>                <span class="p">(</span><span class="nb">add1 </span><span class="p">(</span><span class="nf">reallev</span> <span class="nv">str1</span> <span class="p">(</span><span class="nf">rest</span> <span class="nv">str2</span><span class="p">)))</span>
-</span><span class='line'>                <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nf">reallev</span> <span class="p">(</span><span class="nf">rest</span> <span class="nv">str1</span><span class="p">)</span> <span class="p">(</span><span class="nf">rest</span> <span class="nv">str2</span><span class="p">))</span> <span class="nv">cost</span><span class="p">))]))</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">lev</span> <span class="nv">str1</span> <span class="nv">str2</span><span class="p">)</span> <span class="p">(</span><span class="nf">reallev</span> <span class="p">(</span><span class="nb">string-&gt;list </span><span class="nv">str1</span><span class="p">)</span> <span class="p">(</span><span class="nb">string-&gt;list </span><span class="nv">str2</span><span class="p">)))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Some cool uses of this might be, for example, to suggest spelling corrections on devices. If
-you misspell a word, chances are the one you want is a short number of edits away, which in this
-algorithm is formalized as being either a insertion, deletion or replacement.</p>
-
-<p>The gist of the algorithm is quite simple. You start off comparing the strings pairwise.
-As seen in the recursive call at the end of a function, if the two characters being
-compared do not match, you&rsquo;re trying to achieve the minimum of of the 3 strategies by attaching a
-&ldquo;cost&rdquo; to each operation and allowing each scenario to be recursed upon. It&rsquo;s quite elegant, and to me
-it turned out to be simpler than I assumed it to be.</p>
-
-			
-			
-		</div>
-	<footer>
-		
-
-
-		
-
-
-
-
-	
-	
-	</footer>
-	
-</article>
-<!-- END OF _includes/article.html -->
-
-	
-		
-		<!-- START OF _includes/article.html -->
-<article>
-	<header>
-		<h1><a href="/blog/2014/01/31/sieve-of-eratosthenes/">Sieve of Eratosthenes</a></h1>
-		<time>31 January 2014</time>
-	</header>
-		<div class="content">
-			<p>So I&rsquo;ve been taking an interest in prime numbers recently and how to generate them, so I wrote a up a quick implementation of <a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">The Sieve of Eratosthenes</a> in Python. Here it is:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">primes</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">candidates</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-</span><span class='line'>    <span class="n">candidates</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="bp">False</span><span class="p">])</span>
-</span><span class='line'>  <span class="n">p</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span class='line'>  <span class="n">sieve</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">sieve</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">done</span> <span class="o">=</span> <span class="bp">False</span>
-</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="ow">not</span> <span class="n">done</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">2</span><span class="p">::</span><span class="n">p</span><span class="p">][</span><span class="mi">1</span><span class="p">:]:</span>
-</span><span class='line'>      <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
-</span><span class='line'>    <span class="n">rest</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[(</span><span class="n">p</span><span class="o">-</span><span class="mi">2</span><span class="p">):][</span><span class="mi">1</span><span class="p">:]</span>
-</span><span class='line'>    <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">rest</span><span class="p">:</span>
-</span><span class='line'>      <span class="k">if</span> <span class="ow">not</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-</span><span class='line'>        <span class="n">p</span> <span class="o">=</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span><span class='line'>        <span class="n">found</span> <span class="o">=</span> <span class="bp">True</span>
-</span><span class='line'>        <span class="k">break</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
-</span><span class='line'>      <span class="n">done</span> <span class="o">=</span> <span class="bp">True</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
-</span><span class='line'>    <span class="k">if</span> <span class="ow">not</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-</span><span class='line'>      <span class="k">print</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>For those interested in more curious facts about prime numbers a brilliant talk is given by the great Terrence Tao. It&rsquo;s a bit lengthy but <a href="http://www.youtube.com/watch?v=PtsrAw1LR3E">well worth your time.</a></p>
-
-			
-			
-		</div>
-	<footer>
-		
-
-
-		
-
-
-
-
-	
-	
-	</footer>
-	
-</article>
-<!-- END OF _includes/article.html -->
-
-	
-	
-<div class="pagination">
-	
-	
-	<span class="total">1 of 1</span>
-	
-	
-</div>
-<!-- END OF index.html -->
+<!-- END OF _/layouts/post.html -->
 
 		
 			<footer>
