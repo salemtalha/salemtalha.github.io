@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+	<title><![CDATA[Bits of Discovery]]></title>
+	<link href="http://salemtalha.github.io/atom.xml" rel="self"/>
+	<link href="http://salemtalha.github.io/"/>
+	<updated>2014-06-30T20:58:40-07:00</updated>
+	<id>http://salemtalha.github.io/</id>
+	<author>
+		<name><![CDATA[Salem Talha]]></name>
+		
+	</author>
+	<generator uri="http://octopress.org/">Octopress</generator>
+
+	
+	<entry>
+		
+			<title type="html"><![CDATA[First Raspberry Pi project]]></title>
+		
+		<link href="http://salemtalha.github.io/blog/2014/06/30/first-raspberry-pi-project/"/>
+		<updated>2014-06-30T20:21:09-07:00</updated>
+		<id>http://salemtalha.github.io/blog/2014/06/30/first-raspberry-pi-project</id>
+		<content type="html">
+			<![CDATA[
+				
+					<p></p>
+				
+			]]>
+			<![CDATA[<p>So last week I got my Raspberry Pi in the mail, and since the World Cup has rolled around again
+I decided to create a World Cup scoreboard as my first project. Since I&rsquo;ve had no previous experience
+with circuitry and GPIOs beforehand it was quite a gratifying learning experience for me. I
+was disproportionately happy when I first completed a circuit and lit up a little red LED.
+I ordered a starter kit so I had a breadboard, LEDs and jumper wires right off the bat. The basic
+concept is pretty simple. I poll an API every minute (originally I was just scraping ESPN) and
+light up the &ldquo;scoreboard&rdquo; according to how many goals had been scored on either side. I also
+programmed a special lighting sequence everytime a goal was scored as a sort of visual cue/celebration.
+The lights I used are pretty standard single color LEDs and the resistors were 330 ohms. I wired
+each light with a resistor so the lights wouldn&rsquo;t burn out and used all of the 8 general purpose pins
+on the pi, one for each light. Unfortunately that doesn&rsquo;t allow for all possible game scores but I could have done it in
+binary if I felt like it (which would defeat the convenience of the whole thing). In any case, here is a picture
+and the source code! I made it to be callable from the command line:</p>
+
+<p>python scoreboard.py Germany Argentina</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">RPi.GPIO</span> <span class="kn">as</span> <span class="nn">GPIO</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">time</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">urllib2</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">re</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">json</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">GPIO</span><span class="o">.</span><span class="n">setmode</span><span class="p">(</span><span class="n">GPIO</span><span class="o">.</span><span class="n">BCM</span><span class="p">)</span>
+</span><span class='line'><span class="n">GPIO</span><span class="o">.</span><span class="n">setwarnings</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Game</span><span class="p">():</span>
+</span><span class='line'>  <span class="n">reds</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>      <span class="mi">1</span> <span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+</span><span class='line'>      <span class="mi">2</span> <span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
+</span><span class='line'>      <span class="mi">3</span> <span class="p">:</span> <span class="mi">23</span><span class="p">,</span>
+</span><span class='line'>      <span class="mi">4</span> <span class="p">:</span> <span class="mi">18</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">yellows</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>      <span class="mi">1</span> <span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+</span><span class='line'>      <span class="mi">2</span> <span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
+</span><span class='line'>      <span class="mi">3</span> <span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+</span><span class='line'>      <span class="mi">4</span> <span class="p">:</span> <span class="mi">4</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">team1</span><span class="p">,</span> <span class="n">team2</span><span class="p">):</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">team1</span> <span class="o">=</span> <span class="n">team1</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">team2</span> <span class="o">=</span> <span class="n">team2</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">for</span> <span class="n">slot</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reds</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">yellows</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+</span><span class='line'>          <span class="n">GPIO</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">slot</span><span class="p">,</span> <span class="n">GPIO</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">zero_out</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reds</span><span class="p">)</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">zero_out</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yellows</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">red_score</span><span class="p">,</span> <span class="n">yellow_score</span><span class="p">):</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">red_score</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="ow">or</span> <span class="n">yellow_score</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="k">if</span> <span class="n">red_score</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">red_score</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+</span><span class='line'>              <span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reds</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>          <span class="bp">self</span><span class="o">.</span><span class="n">zero_out</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reds</span><span class="p">)</span>
+</span><span class='line'>      
+</span><span class='line'>      <span class="k">if</span> <span class="n">yellow_score</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">yellow_score</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+</span><span class='line'>              <span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yellows</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>          <span class="bp">self</span><span class="o">.</span><span class="n">zero_out</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yellows</span><span class="p">)</span>
+</span><span class='line'>          
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">def</span> <span class="nf">zero_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+</span><span class='line'>      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+</span><span class='line'>          <span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>      
+</span><span class='line'>  <span class="k">def</span> <span class="nf">flash_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+</span><span class='line'>          <span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reds</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>          <span class="n">GPIO</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yellows</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">def</span> <span class="nf">zero_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">zero_out</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reds</span><span class="p">)</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">zero_out</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yellows</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">def</span> <span class="nf">goal_celebration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+</span><span class='line'>          <span class="bp">self</span><span class="o">.</span><span class="n">flash_all</span><span class="p">()</span>
+</span><span class='line'>          <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">)</span>
+</span><span class='line'>          <span class="bp">self</span><span class="o">.</span><span class="n">zero_all</span><span class="p">()</span>
+</span><span class='line'>          <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">start_game</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>      <span class="n">last_score</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>              <span class="n">data</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s">&#39;http://worldcup.sfg.io/matches/today&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span><span class='line'>              <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="n">data</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s">&#39;home_team&#39;</span><span class="p">][</span><span class="s">&#39;country&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">team1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">team2</span><span class="p">],</span> <span class="n">data</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;winner&#39;</span><span class="p">]:</span>
+</span><span class='line'>                  <span class="bp">self</span><span class="o">.</span><span class="n">zero_all</span><span class="p">()</span>
+</span><span class='line'>                  <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>              
+</span><span class='line'>              <span class="n">red_score</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;home_team&#39;</span><span class="p">][</span><span class="s">&#39;goals&#39;</span><span class="p">]</span>
+</span><span class='line'>              <span class="n">yellow_score</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;away_team&#39;</span><span class="p">][</span><span class="s">&#39;goals&#39;</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="k">if</span> <span class="n">red_score</span> <span class="o">+</span> <span class="n">yellow_score</span> <span class="o">&gt;</span> <span class="n">last_score</span><span class="p">:</span>
+</span><span class='line'>                  <span class="k">print</span> <span class="s">&quot;SCOOOOORE&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">team1</span><span class="p">,</span> <span class="n">red_score</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">team2</span><span class="p">,</span> <span class="n">yellow_score</span>
+</span><span class='line'>                  <span class="bp">self</span><span class="o">.</span><span class="n">goal_celebration</span><span class="p">()</span>
+</span><span class='line'>                  <span class="n">last_score</span> <span class="o">=</span> <span class="n">red_score</span> <span class="o">+</span> <span class="n">yellow_score</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">red_score</span><span class="p">,</span> <span class="n">yellow_score</span><span class="p">)</span>
+</span><span class='line'>              <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">55</span><span class="p">)</span>
+</span><span class='line'>          <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+</span><span class='line'>              <span class="bp">self</span><span class="o">.</span><span class="n">zero_all</span><span class="p">()</span>
+</span><span class='line'>              <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</span><span class='line'><span class="n">game</span> <span class="o">=</span> <span class="n">Game</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</span><span class='line'><span class="n">game</span><span class="o">.</span><span class="n">start_game</span><span class="p">()</span>
+</span><span class='line'><span class="n">game</span><span class="o">.</span><span class="n">zero_all</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="https://scontent-a-sjc.xx.fbcdn.net/hphotos-xpa1/t1.0-9/10411921_325593264271808_1660655254114522972_n.jpg"></p>
+]]>
+		</content>
+	</entry>
+	
+	<entry>
+		
+			<title type="html"><![CDATA[Levenshtein Distance]]></title>
+		
+		<link href="http://salemtalha.github.io/blog/2014/01/31/levenshtein-distance/"/>
+		<updated>2014-01-31T19:21:01-08:00</updated>
+		<id>http://salemtalha.github.io/blog/2014/01/31/levenshtein-distance</id>
+		<content type="html">
+			<![CDATA[
+				
+					<p></p>
+				
+			]]>
+			<![CDATA[<p>I was reading on wikipedia about a few string functions and one interesting
+one that I came across is the <a href="http://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein Distance</a>.
+It&rsquo;s a really neat way of figuring out the &ldquo;edit distance&rdquo; between two strings,
+and, like many problems, it&rsquo;s best stated recursively. So here&rsquo;s my
+implementation in racket. It&rsquo;s always interesting to think about how some
+problems almost beg to be solved via a particular paradigm, and I think this is one of them.
+For comparison, the imperative solutions on the wiki page are quite long and a
+bit unwieldy.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='racket'><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">reallev</span> <span class="nv">str1</span> <span class="nv">str2</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">define </span><span class="nv">cost</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">cond </span><span class="p">[(</span><span class="nf">empty?</span> <span class="nv">str1</span><span class="p">)</span> <span class="p">(</span><span class="nb">length </span><span class="nv">str2</span><span class="p">)]</span>
+</span><span class='line'>        <span class="p">[(</span><span class="nf">empty?</span> <span class="nv">str2</span><span class="p">)</span> <span class="p">(</span><span class="nb">length </span><span class="nv">str1</span><span class="p">)]</span>
+</span><span class='line'>        <span class="p">[</span><span class="nf">else</span>
+</span><span class='line'>           <span class="p">(</span><span class="k">when </span><span class="p">(</span><span class="nb">not </span><span class="p">(</span><span class="nb">equal? </span><span class="p">(</span><span class="nf">first</span> <span class="nv">str1</span><span class="p">)</span> <span class="p">(</span><span class="nf">first</span> <span class="nv">str2</span><span class="p">)))</span> <span class="p">(</span><span class="k">set! </span><span class="nv">cost</span> <span class="mi">1</span><span class="p">))</span>
+</span><span class='line'>           <span class="p">(</span><span class="nb">min </span><span class="p">(</span><span class="nb">add1 </span><span class="p">(</span><span class="nf">reallev</span> <span class="p">(</span><span class="nf">rest</span> <span class="nv">str1</span><span class="p">)</span> <span class="nv">str2</span><span class="p">))</span>
+</span><span class='line'>                <span class="p">(</span><span class="nb">add1 </span><span class="p">(</span><span class="nf">reallev</span> <span class="nv">str1</span> <span class="p">(</span><span class="nf">rest</span> <span class="nv">str2</span><span class="p">)))</span>
+</span><span class='line'>                <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nf">reallev</span> <span class="p">(</span><span class="nf">rest</span> <span class="nv">str1</span><span class="p">)</span> <span class="p">(</span><span class="nf">rest</span> <span class="nv">str2</span><span class="p">))</span> <span class="nv">cost</span><span class="p">))]))</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">lev</span> <span class="nv">str1</span> <span class="nv">str2</span><span class="p">)</span> <span class="p">(</span><span class="nf">reallev</span> <span class="p">(</span><span class="nb">string-&gt;list </span><span class="nv">str1</span><span class="p">)</span> <span class="p">(</span><span class="nb">string-&gt;list </span><span class="nv">str2</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Some cool uses of this might be, for example, to suggest spelling corrections on devices. If
+you misspell a word, chances are the one you want is a short number of edits away, which in this
+algorithm is formalized as being either a insertion, deletion or replacement.</p>
+
+<p>The gist of the algorithm is quite simple. You start off comparing the strings pairwise.
+As seen in the recursive call at the end of a function, if the two characters being
+compared do not match, you&rsquo;re trying to achieve the minimum of of the 3 strategies by attaching a
+&ldquo;cost&rdquo; to each operation and allowing each scenario to be recursed upon. It&rsquo;s quite elegant, and to me
+it turned out to be simpler than I assumed it to be.</p>
+]]>
+		</content>
+	</entry>
+	
+	<entry>
+		
+			<title type="html"><![CDATA[Sieve of Eratosthenes]]></title>
+		
+		<link href="http://salemtalha.github.io/blog/2014/01/31/sieve-of-eratosthenes/"/>
+		<updated>2014-01-31T18:03:29-08:00</updated>
+		<id>http://salemtalha.github.io/blog/2014/01/31/sieve-of-eratosthenes</id>
+		<content type="html">
+			<![CDATA[
+				
+					<p></p>
+				
+			]]>
+			<![CDATA[<p>So I&rsquo;ve been taking an interest in prime numbers recently and how to generate them, so I wrote a up a quick implementation of <a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">The Sieve of Eratosthenes</a> in Python. Here it is:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">primes</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">candidates</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">candidates</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="bp">False</span><span class="p">])</span>
+</span><span class='line'>  <span class="n">p</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span class='line'>  <span class="n">sieve</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">sieve</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">done</span> <span class="o">=</span> <span class="bp">False</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="ow">not</span> <span class="n">done</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">2</span><span class="p">::</span><span class="n">p</span><span class="p">][</span><span class="mi">1</span><span class="p">:]:</span>
+</span><span class='line'>      <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
+</span><span class='line'>    <span class="n">rest</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[(</span><span class="n">p</span><span class="o">-</span><span class="mi">2</span><span class="p">):][</span><span class="mi">1</span><span class="p">:]</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">rest</span><span class="p">:</span>
+</span><span class='line'>      <span class="k">if</span> <span class="ow">not</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+</span><span class='line'>        <span class="n">p</span> <span class="o">=</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>        <span class="n">found</span> <span class="o">=</span> <span class="bp">True</span>
+</span><span class='line'>        <span class="k">break</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+</span><span class='line'>      <span class="n">done</span> <span class="o">=</span> <span class="bp">True</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">if</span> <span class="ow">not</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+</span><span class='line'>      <span class="k">print</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For those interested in more curious facts about prime numbers a brilliant talk is given by the great Terrence Tao. It&rsquo;s a bit lengthy but <a href="http://www.youtube.com/watch?v=PtsrAw1LR3E">well worth your time.</a></p>
+]]>
+		</content>
+	</entry>
+	
+</feed>
