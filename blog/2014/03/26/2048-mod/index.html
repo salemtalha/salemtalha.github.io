@@ -5,11 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>about - Bits of Discovery</title>
+  <title>2048 Mod - Bits of Discovery</title>
   <meta name="author" content="Salem Talha">
 
   
-  <meta name="description" content="About Jan 31st, 2014 Hello Jan 31st, 2014 Tweet Bits of Discovery Stuff I Like to Learn About Home Archives About Feed Recent Posts My Hackathon &hellip;">
+  <meta name="description" content="So the 2048 craze has pretty well taken hold, so I decided to make a
+little mod myself out of it. The idea is that every 10 seconds,
+everyone playing &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://salemtalha.github.io/about/">
+  <link rel="canonical" href="http://salemtalha.github.io/blog/2014/03/26/2048-mod/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -67,32 +69,15 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">About</h1>
-    <p class="meta">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-31T22:12:00-05:00" pubdate data-updated="true">Jan 31<span>st</span>, 2014</time></p>
-  </header>
-  
-  <p>Hello</p>
-
-  
-    <footer>
+    
+      <h1 class="entry-title">2048 Mod</h1>
+    
+    
       <p class="meta">
         
-        
 
 
 
@@ -104,21 +89,92 @@
   
 
 
-<time datetime="2014-01-31T22:12:00-05:00" pubdate data-updated="true">Jan 31<span>st</span>, 2014</time>
+<time datetime="2014-03-26T01:15:23-04:00" pubdate data-updated="true">Mar 26<span>th</span>, 2014</time>
         
       </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>So the 2048 craze has pretty well taken hold, so I decided to make a
+little mod myself out of it. The idea is that every 10 seconds,
+everyone playing accept everyone else&rsquo;s keystrokes for a brief moment.
+I did this using Socket.io along with
+Node.js to send movements across clients. The main bit of code on the
+server involves adding and removing the event listener the
+appropriate intervals:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">cb</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">direction</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">socket</span><span class="p">.</span><span class="nx">broadcast</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;keypress&#39;</span><span class="p">,</span> <span class="nx">direction</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">socket</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s1">&#39;keypress&#39;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">socket</span><span class="p">.</span><span class="nx">removeListener</span><span class="p">(</span><span class="s1">&#39;keypress&#39;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span> <span class="mi">100</span><span class="p">);</span>
+</span><span class='line'><span class="p">},</span> <span class="mi">10000</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I also added a display so you can know how many
+other players are online! You can check it out <a href="http://www.csclub.uwaterloo.ca/~satalha/2048">here</a>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
       
-        <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://salemtalha.github.io/about/index.html" data-via="" data-counturl="http://salemtalha.github.io/about/index.html" >Tweet</a>
+
+<span class="byline author vcard">Posted by <span class="fn">Salem Talha</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-26T01:15:23-04:00" pubdate data-updated="true">Mar 26<span>th</span>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://salemtalha.github.io/blog/2014/03/26/2048-mod/" data-via="" data-counturl="http://salemtalha.github.io/blog/2014/03/26/2048-mod/" >Tweet</a>
   
   
   
 </div>
 
+    
+    <p class="meta">
       
-    </footer>
-  
+        <a class="basic-alignment left" href="/blog/2014/02/28/wildcard-programming-challenge/" title="Previous Post: Wildcard Programming Challenge">&laquo; Wildcard Programming Challenge</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/04/01/my-hackathon-experience/" title="Next Post: My Hackathon Experience">My Hackathon Experience &raquo;</a>
+      
+    </p>
+  </footer>
 </article>
 
 </div>
