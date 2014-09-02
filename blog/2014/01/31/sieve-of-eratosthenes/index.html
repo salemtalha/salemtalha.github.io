@@ -1,0 +1,178 @@
+
+<!doctype html>
+<!-- START OF _layouts/default.html -->
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" >
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<meta content="" name="description">
+		<meta content="Bits of Discovery" name="author">
+		
+		<title>Sieve of Eratosthenes &mdash; Bits of Discovery</title>
+		
+		<!-- Styles -->
+		<link href="/stylesheets/main.css" rel="stylesheet">
+		
+		<!-- Google webfonts -->
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Cousine">
+		
+		<!-- jQuery and plugins -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script src="/js/jquery.zclip.min.js"></script>
+		
+		<!-- Syntax highlighter -->
+		<link href="/stylesheets/prettify-hemisu.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript" src="/js/prettify.js"></script>
+		
+		<!--<link href="http://feeds.feedburner.com/turkeltaub" rel="alternate" title="Bits of Discovery" type="application/rss+xml" />-->
+		
+	</head>
+	<body onload="prettyPrint()">
+	
+		<div class="wrap">
+	
+			<header>
+				<div class="title">Bits of Discovery</div>
+				
+				<div class="navi">
+					<ul>
+						<li><a href="/">Blog</a></li>
+						<li><a href="/blog/archives">Archives</a></li>
+					</ul>
+				</div> <!-- // .navi -->
+			</header>
+		
+				<!-- START OF _layouts/post.html -->
+
+<!-- START OF _includes/article.html -->
+<article>
+	<header>
+		<h1><a href="/blog/2014/01/31/sieve-of-eratosthenes/">Sieve of Eratosthenes</a></h1>
+		<time>31 January 2014</time>
+	</header>
+		<div class="content">
+			<p>So I&rsquo;ve been taking an interest in prime numbers recently and how to generate them, so I wrote a up a quick implementation of <a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">The Sieve of Eratosthenes</a> in Python. Here it is:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">primes</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">candidates</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">candidates</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="bp">False</span><span class="p">])</span>
+</span><span class='line'>  <span class="n">p</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span class='line'>  <span class="n">sieve</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">sieve</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">done</span> <span class="o">=</span> <span class="bp">False</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="ow">not</span> <span class="n">done</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">2</span><span class="p">::</span><span class="n">p</span><span class="p">][</span><span class="mi">1</span><span class="p">:]:</span>
+</span><span class='line'>      <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
+</span><span class='line'>    <span class="n">rest</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[(</span><span class="n">p</span><span class="o">-</span><span class="mi">2</span><span class="p">):][</span><span class="mi">1</span><span class="p">:]</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">rest</span><span class="p">:</span>
+</span><span class='line'>      <span class="k">if</span> <span class="ow">not</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+</span><span class='line'>        <span class="n">p</span> <span class="o">=</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>        <span class="n">found</span> <span class="o">=</span> <span class="bp">True</span>
+</span><span class='line'>        <span class="k">break</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+</span><span class='line'>      <span class="n">done</span> <span class="o">=</span> <span class="bp">True</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">if</span> <span class="ow">not</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+</span><span class='line'>      <span class="k">print</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For those interested in more curious facts about prime numbers a brilliant talk is given by the great Terrence Tao. It&rsquo;s a bit lengthy but <a href="http://www.youtube.com/watch?v=PtsrAw1LR3E">well worth your time.</a></p>
+
+			
+			
+		</div>
+	<footer>
+		
+
+
+		
+
+
+
+
+	
+	
+	</footer>
+	
+</article>
+<!-- END OF _includes/article.html -->
+
+
+<!-- END OF _/layouts/post.html -->
+
+		
+			<footer>
+				Copyright &copy; 2014
+
+	Salem Talha
+
+
+			</footer>
+			
+		</div> <!-- // .wrap -->
+	</body>
+	<script>
+		$(document).ready(function() {
+			// Make images center
+			$('p:has(img)').css('text-align', 'center');
+			
+			// Add the image's title attribute as a caption
+			$('p:has(img)').append(function () {
+				return '<div class="caption">' + ($('img', this).attr('title') || "") + '</div>';
+			});
+			
+			// Prettify code
+			$('code').addClass('prettyprint');
+			$('pre code').addClass('linenums');
+			
+			// Copy to clipboard with button
+			$('pre:has(code)').prepend(function(){
+				return '<div class="clip-btn">copy to clipboard</div>';
+			});
+			$('.clip-btn').zclip({
+				path:'/js/ZeroClipboard.swf',
+				copy: $(this).next('code').text(),
+				afterCopy: function(){
+					$(this).replaceWith('<div class="clip-btn">copied!');
+					}
+			});
+		});
+	</script>
+</html>
+<!-- END OF _layouts/default.html -->
