@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Bits of Discovery]]></title>
-  <link href="http://salemtalha.github.io/atom.xml" rel="self"/>
-  <link href="http://salemtalha.github.io/"/>
-  <updated>2014-09-01T20:25:41-04:00</updated>
-  <id>http://salemtalha.github.io/</id>
-  <author>
-    <name><![CDATA[Salem Talha]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+	<title><![CDATA[Bits of Discovery]]></title>
+	<link href="http://salemtalha.github.io/atom.xml" rel="self"/>
+	<link href="http://salemtalha.github.io/"/>
+	<updated>2014-09-01T20:33:23-04:00</updated>
+	<id>http://salemtalha.github.io/</id>
+	<author>
+		<name><![CDATA[Salem Talha]]></name>
+		
+	</author>
+	<generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[My Hackathon Experience]]></title>
-    <link href="http://salemtalha.github.io/blog/2014/04/01/my-hackathon-experience/"/>
-    <updated>2014-04-01T12:43:10-04:00</updated>
-    <id>http://salemtalha.github.io/blog/2014/04/01/my-hackathon-experience</id>
-    <content type="html"><![CDATA[<p>So I attended the <a href="www.hack-waterloo.com">UWaterloo Hackathon</a> the other night and it was a rereally neat experience. There were a ton of people there, and some folks came down from Google Waterloo to help out with judging and mentoring.</p>
+	
+	<entry>
+		
+			<title type="html"><![CDATA[My Hackathon Experience]]></title>
+		
+		<link href="http://salemtalha.github.io/blog/2014/04/01/my-hackathon-experience/"/>
+		<updated>2014-04-01T12:43:10-04:00</updated>
+		<id>http://salemtalha.github.io/blog/2014/04/01/my-hackathon-experience</id>
+		<content type="html">
+			<![CDATA[
+				
+					<p></p>
+				
+			]]>
+			<![CDATA[<p>So I attended the <a href="www.hack-waterloo.com">UWaterloo Hackathon</a> the other night and it was a rereally neat experience. There were a ton of people there, and some folks came down from Google Waterloo to help out with judging and mentoring.</p>
 
 <p>As for my personal project, I decided to make an attempt at solving a
 problem I face a lot in my personal life. I have a practice of
@@ -42,15 +50,24 @@ want.</p>
 although the functionality is pretty bare. Next on my list of improvements
 is better routing, autocomplete for link recipients, and being able to send
 &ldquo;friend requests&rdquo; so you can approve who you&rsquo;ll get links from.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[2048 Mod]]></title>
-    <link href="http://salemtalha.github.io/blog/2014/03/26/2048-mod/"/>
-    <updated>2014-03-26T01:15:23-04:00</updated>
-    <id>http://salemtalha.github.io/blog/2014/03/26/2048-mod</id>
-    <content type="html"><![CDATA[<p>So the 2048 craze has pretty well taken hold, so I decided to make a
+]]>
+		</content>
+	</entry>
+	
+	<entry>
+		
+			<title type="html"><![CDATA[2048 Mod]]></title>
+		
+		<link href="http://salemtalha.github.io/blog/2014/03/26/2048-mod/"/>
+		<updated>2014-03-26T01:15:23-04:00</updated>
+		<id>http://salemtalha.github.io/blog/2014/03/26/2048-mod</id>
+		<content type="html">
+			<![CDATA[
+				
+					<p></p>
+				
+			]]>
+			<![CDATA[<p>So the 2048 craze has pretty well taken hold, so I decided to make a
 little mod myself out of it. The idea is that every 10 seconds,
 everyone playing accept everyone else&rsquo;s keystrokes for a brief moment.
 I did this using Socket.io along with
@@ -83,15 +100,24 @@ appropriate intervals:</p>
 
 <p>I also added a display so you can know how many
 other players are online! You can check it out <a href="http://www.csclub.uwaterloo.ca/~satalha/2048">here</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Wildcard Programming Challenge]]></title>
-    <link href="http://salemtalha.github.io/blog/2014/02/28/wildcard-programming-challenge/"/>
-    <updated>2014-02-28T12:07:03-05:00</updated>
-    <id>http://salemtalha.github.io/blog/2014/02/28/wildcard-programming-challenge</id>
-    <content type="html"><![CDATA[<p>I came across a neat programming question at a tech company called <a href="http://www.trywildcard.com/challenge/problem1">WildCard</a> and decided and I&rsquo;d take a crack at it in C.
+]]>
+		</content>
+	</entry>
+	
+	<entry>
+		
+			<title type="html"><![CDATA[Wildcard Programming Challenge]]></title>
+		
+		<link href="http://salemtalha.github.io/blog/2014/02/28/wildcard-programming-challenge/"/>
+		<updated>2014-02-28T12:07:03-05:00</updated>
+		<id>http://salemtalha.github.io/blog/2014/02/28/wildcard-programming-challenge</id>
+		<content type="html">
+			<![CDATA[
+				
+					<p></p>
+				
+			]]>
+			<![CDATA[<p>I came across a neat programming question at a tech company called <a href="http://www.trywildcard.com/challenge/problem1">WildCard</a> and decided and I&rsquo;d take a crack at it in C.
 The idea here is pretty simple using some basic combinatorics. If you have fewer than 5 available spots in any given row/column, clearly you can&rsquo;t place 5 cards there.
 However, if you have >= 5 open spots, you can do the following: place the cards in (EmptySpots choose 5) places, and once you&rsquo;ve placed them there, you can shuffle the
 cards in those 5 places in 5! ways. So when you multiply these together you get the number of possibilities for a single row or column. All we have to do now is iterate
@@ -225,15 +251,24 @@ over the table and sum these values up! Here&rsquo;s the code:</p>
 
 
 <p>And if you&rsquo;re interested in the answer, there are a whopping 167,160 ways to do this! Crazy how numbers work.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Levenshtein Distance]]></title>
-    <link href="http://salemtalha.github.io/blog/2014/01/31/levenshtein-distance/"/>
-    <updated>2014-01-31T22:21:01-05:00</updated>
-    <id>http://salemtalha.github.io/blog/2014/01/31/levenshtein-distance</id>
-    <content type="html"><![CDATA[<p>I was reading on wikipedia about a few string functions and one interesting
+]]>
+		</content>
+	</entry>
+	
+	<entry>
+		
+			<title type="html"><![CDATA[Levenshtein Distance]]></title>
+		
+		<link href="http://salemtalha.github.io/blog/2014/01/31/levenshtein-distance/"/>
+		<updated>2014-01-31T22:21:01-05:00</updated>
+		<id>http://salemtalha.github.io/blog/2014/01/31/levenshtein-distance</id>
+		<content type="html">
+			<![CDATA[
+				
+					<p></p>
+				
+			]]>
+			<![CDATA[<p>I was reading on wikipedia about a few string functions and one interesting
 one that I came across is the <a href="http://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein Distance</a>.
 It&rsquo;s a really neat way of figuring out the &ldquo;edit distance&rdquo; between two strings,
 and, like many problems, it&rsquo;s best stated recursively. So here&rsquo;s my
@@ -276,15 +311,24 @@ As seen in the recursive call at the end of a function, if the two characters be
 compared do not match, you&rsquo;re trying to achieve the minimum of of the 3 strategies by attaching a
 &ldquo;cost&rdquo; to each operation and allowing each scenario to be recursed upon. It&rsquo;s quite elegant, and to me
 it turned out to be simpler than I assumed it to be.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Sieve of Eratosthenes]]></title>
-    <link href="http://salemtalha.github.io/blog/2014/01/31/sieve-of-eratosthenes/"/>
-    <updated>2014-01-31T21:03:29-05:00</updated>
-    <id>http://salemtalha.github.io/blog/2014/01/31/sieve-of-eratosthenes</id>
-    <content type="html"><![CDATA[<p>So I&rsquo;ve been taking an interest in prime numbers recently and how to generate them, so I wrote a up a quick implementation of <a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">The Sieve of Eratosthenes</a> in Python. Here it is:</p>
+]]>
+		</content>
+	</entry>
+	
+	<entry>
+		
+			<title type="html"><![CDATA[Sieve of Eratosthenes]]></title>
+		
+		<link href="http://salemtalha.github.io/blog/2014/01/31/sieve-of-eratosthenes/"/>
+		<updated>2014-01-31T21:03:29-05:00</updated>
+		<id>http://salemtalha.github.io/blog/2014/01/31/sieve-of-eratosthenes</id>
+		<content type="html">
+			<![CDATA[
+				
+					<p></p>
+				
+			]]>
+			<![CDATA[<p>So I&rsquo;ve been taking an interest in prime numbers recently and how to generate them, so I wrote a up a quick implementation of <a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">The Sieve of Eratosthenes</a> in Python. Here it is:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -344,7 +388,8 @@ it turned out to be simpler than I assumed it to be.</p>
 
 
 <p>For those interested in more curious facts about prime numbers a brilliant talk is given by the great Terrence Tao. It&rsquo;s a bit lengthy but <a href="http://www.youtube.com/watch?v=PtsrAw1LR3E">well worth your time.</a></p>
-]]></content>
-  </entry>
-  
+]]>
+		</content>
+	</entry>
+	
 </feed>
