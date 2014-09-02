@@ -4,7 +4,7 @@
   <title><![CDATA[Bits of Discovery]]></title>
   <link href="http://salemtalha.github.io/atom.xml" rel="self"/>
   <link href="http://salemtalha.github.io/"/>
-  <updated>2014-09-02T00:01:36-04:00</updated>
+  <updated>2014-09-02T00:04:40-04:00</updated>
   <id>http://salemtalha.github.io/</id>
   <author>
     <name><![CDATA[Salem Talha]]></name>
@@ -87,7 +87,7 @@ the life of a startup and, potentially, be in the middle of something huge.</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Levenshtein Distance]]></title>
+    <title type="html"><![CDATA[My First Raspberry Pi Project]]></title>
     <link href="http://salemtalha.github.io/blog/2014/06/30/first-raspberry-pi-project/"/>
     <updated>2014-06-30T21:21:01-04:00</updated>
     <id>http://salemtalha.github.io/blog/2014/06/30/first-raspberry-pi-project</id>
